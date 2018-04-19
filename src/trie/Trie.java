@@ -146,15 +146,6 @@ public class Trie implements TrieInterface {
 		}
 	}
 
-	/* utility method for remove */
-	private boolean isFreeNode(Node node) {
-		for (Node child : node.children.values()) {
-			if (child != null) {
-				return false;
-			}
-		}
-		return true;
-	}
 
 	/* a utility method to remove a word from the trie. */
 	private boolean removeUtil(Node node, String str, int level) {
@@ -162,7 +153,7 @@ public class Trie implements TrieInterface {
 			if (level == str.length()) {
 				if (node.isEnd) {
 					node.isEnd = false;
-					if (isFreeNode(node)) {
+					if (node.children.isEmpty()) {
 						return true;
 					}
 					return false;
@@ -170,7 +161,7 @@ public class Trie implements TrieInterface {
 			} else {
 				if (removeUtil(node.children.get(str.charAt(level)), str, level + 1)) {
 					node.children.remove(str.charAt(level));
-					return (!node.isEnd && isFreeNode(node));
+					return (!node.isEnd && node.children.isEmpty());
 				}
 			}
 		}
