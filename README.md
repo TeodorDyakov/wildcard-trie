@@ -3,7 +3,7 @@
 A trie that stores strings. It can be quiried using wildcard syntax. currently the '*' and '?' wildcards are supported.
 
 Example use:
- ```
+ ```java
 Trie t = new Trie(new String[] { "cafe", "coffee", "caffe", "cup", "java", "kaffe" });
 
 		System.out.println(t.wildcardMatches("c*"));
