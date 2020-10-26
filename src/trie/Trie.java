@@ -15,9 +15,13 @@ public class Trie implements TrieInterface {
 	 */
 	private int size;
 	/**
-	 * The wild card or "don't care' character
+	 * (matches any single character)
 	 */
-	public static final char WILDCARD = '?';
+	public static final char WILDCARD_QUESTION_MARK = '?';
+	/**
+	 * matches any sequence of characters
+	 */
+	public static final char WILDCARD_STAR = '*';
 
 	/**
 	 * Constructs a new empty trie
@@ -89,8 +93,8 @@ public class Trie implements TrieInterface {
 	}
 
 	/*
-	 * traverses the trie and adds all words matching the string with wildcards
-	 * * to list
+	 * traverses the trie and adds all words matching the string with wildcards * to
+	 * list
 	 */
 	private void wildcardTraverse(String pattern, StringBuilder prefix, Node root, int len,
 			List<String> wildcardMatches) {
@@ -103,8 +107,18 @@ public class Trie implements TrieInterface {
 			}
 			return;
 		}
-		if (pattern.charAt(len) == WILDCARD) {
+		if (pattern.charAt(len) == WILDCARD_QUESTION_MARK) {
 			for (Entry<Character, Node> e : root.children.entrySet()) {
+				prefix.append(e.getKey());
+				wildcardTraverse(pattern, prefix, e.getValue(), len + 1, wildcardMatches);
+				prefix.deleteCharAt(prefix.length() - 1);
+			}
+		} else if (pattern.charAt(len) == WILDCARD_STAR) {
+			for (Entry<Character, Node> e : root.children.entrySet()) {
+				prefix.append(e.getKey());
+				wildcardTraverse(pattern, prefix, e.getValue(), len, wildcardMatches);
+				prefix.deleteCharAt(prefix.length() - 1);
+
 				prefix.append(e.getKey());
 				wildcardTraverse(pattern, prefix, e.getValue(), len + 1, wildcardMatches);
 				prefix.deleteCharAt(prefix.length() - 1);
@@ -116,6 +130,8 @@ public class Trie implements TrieInterface {
 			prefix.deleteCharAt(prefix.length() - 1);
 		}
 	}
+
+	/* returns a list of all words matching the string with wildcards */
 
 	/* returns whether the trie contains a given word */
 	@Override
@@ -145,7 +161,6 @@ public class Trie implements TrieInterface {
 			DFS(e.getValue(), prefix + e.getKey(), list);
 		}
 	}
-
 
 	/* a utility method to remove a word from the trie. */
 	private boolean removeUtil(Node node, String str, int level) {
