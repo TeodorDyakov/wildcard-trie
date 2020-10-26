@@ -1,1 +1,51 @@
-/bin/
+# Project Ignores Files 
+
+# Maven
+.mvn
+*.classpath
+*.project
+*.settings
+/bin/*
+/target/*
+
+#gradle
+.gradle
+/build
+
+# Compiled class file
+*.class
+
+# Package Files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+
+# JetBrains IDEs
+.idea/
+*.iml
+
+# Eclipse
+.project
+.classpath
+.settings
+
+# Netbeans
+nbactions*.xml
+nb-configuration*.xml
+
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+.BIN/
+
+#Extra Folders
+/unused
+**/.DS_Store
+
+#spring
