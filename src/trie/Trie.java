@@ -2,8 +2,10 @@ package trie;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 
 public class Trie implements TrieInterface {
 	/**
@@ -84,10 +86,12 @@ public class Trie implements TrieInterface {
 		return getNode(str) != null;
 	}
 
+	static Set<Node> visited = new HashSet<>();
+
 	/* returns a list of all words matching the string with wildcards */
 	@Override
-	public List<String> wildcardMatches(String str) {
-		List<String> wildcardMatches = new ArrayList<>();
+	public Set<String> wildcardMatches(String str) {
+		Set<String> wildcardMatches = new HashSet<>();
 		wildcardTraverse(str, new StringBuilder(), root, 0, wildcardMatches);
 		return wildcardMatches;
 	}
@@ -97,7 +101,7 @@ public class Trie implements TrieInterface {
 	 * list
 	 */
 	private void wildcardTraverse(String pattern, StringBuilder prefix, Node root, int len,
-			List<String> wildcardMatches) {
+			Set<String> wildcardMatches) {
 		if (root == null) {
 			return;
 		}
@@ -114,13 +118,12 @@ public class Trie implements TrieInterface {
 				prefix.deleteCharAt(prefix.length() - 1);
 			}
 		} else if (pattern.charAt(len) == WILDCARD_STAR) {
+
+			wildcardTraverse(pattern, prefix, root, len + 1, wildcardMatches);
+
 			for (Entry<Character, Node> e : root.children.entrySet()) {
 				prefix.append(e.getKey());
 				wildcardTraverse(pattern, prefix, e.getValue(), len, wildcardMatches);
-				prefix.deleteCharAt(prefix.length() - 1);
-
-				prefix.append(e.getKey());
-				wildcardTraverse(pattern, prefix, e.getValue(), len + 1, wildcardMatches);
 				prefix.deleteCharAt(prefix.length() - 1);
 			}
 		} else {
