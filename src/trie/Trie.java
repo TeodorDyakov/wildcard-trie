@@ -86,13 +86,11 @@ public class Trie implements TrieInterface {
 		return getNode(str) != null;
 	}
 
-	static Set<Node> visited = new HashSet<>();
-
-	/* returns a list of all words matching the string with wildcards */
+	/* returns a set of all words matching the string with wildcards */
 	@Override
-	public Set<String> wildcardMatches(String str) {
+	public Set<String> wildcardMatches(String pattern) {
 		Set<String> wildcardMatches = new HashSet<>();
-		wildcardTraverse(str, new StringBuilder(), root, 0, wildcardMatches);
+		wildcardTraverse(pattern, new StringBuilder(), root, 0, wildcardMatches);
 		return wildcardMatches;
 	}
 
