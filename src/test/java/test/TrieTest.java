@@ -125,16 +125,16 @@ public class TrieTest {
 	@Test
 	public void sizeTest() {
 		Trie trie = new Trie();
-		assertTrue(trie.size() == 0);
+		assertEquals(0, trie.size());
 		trie.add("core");
 		trie.add("core");
-		assertTrue(trie.size() == 1);
+		assertEquals(1, trie.size());
 		trie.add("bar");
-		assertTrue(trie.size() == 2);
+		assertEquals(2, trie.size());
 		trie.remove("bar");
-		assertTrue(trie.size() == 1);
+		assertEquals(1, trie.size());
 		trie.remove("core");
-		assertTrue(trie.size() == 0);
+		assertEquals(0, trie.size());
 	}
 
 	@Test
@@ -146,6 +146,6 @@ public class TrieTest {
 		trie.add("nc");
 		trie.clear();
 		assertEquals(emptySet, getAll(trie));
-		assertTrue(trie.size() == 0);
+		assertEquals(0, trie.size());
 	}
 }

@@ -9,15 +9,15 @@ public interface TrieInterface {
 	 * 
 	 * @param str string to be added
 	 */
-	public void add(String str);
+	void add(String str);
 
 	/**
 	 * Return true if and only if the trie contains the given string
 	 * 
 	 * @param str string that is tested for containment
-	 * @return
+	 * @return true if the trie contains str
 	 */
-	public boolean contains(String str);
+	boolean contains(String str);
 
 	/**
 	 * Return a list of all the strings in the trie that start with the given prefix
@@ -27,7 +27,7 @@ public interface TrieInterface {
 	 * @return list of all the strings in the trie that start with the given string
 	 * 
 	 */
-	public List<String> prefixedWords(String prefix);
+	List<String> prefixedWords(String prefix);
 
 	/**
 	 * Returns all string that match the given pattern where '?' can be any
@@ -35,25 +35,25 @@ public interface TrieInterface {
 	 * since ? can be any lower-case English letter
 	 * 
 	 * @param pattern the pattern to match
-	 * @return a set of all strings matching the patern
+	 * @return a set of all strings matching the pattern
 	 */
-	public Set<String> wildcardMatches(String pattern);
+	Set<String> wildcardMatches(String pattern);
 
 	/**
 	 * Removes all words from the trie and resets the size
 	 */
-	public void clear();
+	void clear();
 
 	/**
 	 * @return the number of unique words in the trie
 	 */
-	public int size();
+	int size();
 
 	/**
 	 * Removes the given string from the trie
 	 * 
 	 * @param str string to remove
 	 */
-	public void remove(String str);
+	void remove(String str);
 
 }

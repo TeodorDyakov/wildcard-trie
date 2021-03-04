@@ -59,7 +59,7 @@ public class Trie implements TrieInterface {
 			}
 			curr = curr.children.get(str.charAt(i));
 		}
-		if (curr.isEnd == false) {
+		if (!curr.isEnd) {
 			size++;
 		}
 		curr.isEnd = true;
@@ -79,11 +79,6 @@ public class Trie implements TrieInterface {
 			node = child;
 		}
 		return node;
-	}
-
-	/* returns true if there are any words in the trie with this prefix */
-	public boolean hasPrefix(String str) {
-		return getNode(str) != null;
 	}
 
 	/* returns a set of all words matching the string with wildcards */
@@ -169,10 +164,7 @@ public class Trie implements TrieInterface {
 			if (level == str.length()) {
 				if (node.isEnd) {
 					node.isEnd = false;
-					if (node.children.isEmpty()) {
-						return true;
-					}
-					return false;
+					return node.children.isEmpty();
 				}
 			} else {
 				if (removeUtil(node.children.get(str.charAt(level)), str, level + 1)) {
